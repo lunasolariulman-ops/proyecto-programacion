@@ -1,4 +1,4 @@
-# Programación - Sistema de Gestión para Estudio Contable 
+# Programación - Sistema de Gestión para Estudio Contable
 
 ## Descripción del Proyecto
 Este proyecto consiste en una plataforma digital enfocada a optimizar la interacción y el flujo de trabajo entre un estudio contable y sus clientes. El sistema busca facilitar el intercambio de documentación de manera organizada.
