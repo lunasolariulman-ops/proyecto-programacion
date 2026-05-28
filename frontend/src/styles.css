@@ -1,8 +1,7 @@
-﻿@import "tailwindcss" source(none);
-@import "tw-animate-css";
+@import "tailwindcss" source(none);
 @source "../src";
+@import "tw-animate-css";
 
-@custom-variant dark (&:is(.dark *));
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
@@ -104,4 +103,3 @@
   }
   h1, h2, h3, h4 { letter-spacing: -0.01em; font-weight: 600; }
 }
-
