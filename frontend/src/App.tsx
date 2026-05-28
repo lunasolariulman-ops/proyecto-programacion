@@ -1,16 +1,5 @@
-import { createFileRoute } from "@tanstack/react-router";
 import { useState, useEffect, useRef, type FormEvent } from "react";
 import { Eye, EyeOff, Folder, Menu, X, TrendingUp, Receipt, FilePlus, Bell } from "lucide-react";
-
-export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      { title: "GitAudit — Iniciar sesión" },
-      { name: "description", content: "GitAudit: gestión contable segura y colaborativa para equipos de auditoría." },
-    ],
-  }),
-  component: AppRoot,
-});
 
 type Stage = "login" | "transition" | "dashboard";
 type Section = "clientes" | "formulas";
@@ -60,7 +49,7 @@ function NotificationsBell() {
   );
 }
 
-function AppRoot() {
+export default function App() {
   const [stage, setStage] = useState<Stage>("login");
   const [fadeIn, setFadeIn] = useState(false);
 
@@ -236,7 +225,6 @@ function Dashboard({ onLogout }: { onLogout: () => void }) {
 
   return (
     <div className="min-h-screen flex" style={{ backgroundColor: "#F4F5F7", fontFamily: "Outfit, sans-serif" }}>
-      {/* Top bar */}
       <header
         className="fixed top-0 inset-x-0 h-14 bg-white border-b z-30 flex items-center px-4 md:pl-[236px] md:pr-6"
         style={{ borderColor: "#C5D4EA" }}
@@ -266,7 +254,6 @@ function Dashboard({ onLogout }: { onLogout: () => void }) {
         </div>
       </header>
 
-      {/* Sidebar */}
       <Sidebar
         section={section}
         onSelect={selectSection}
@@ -275,7 +262,6 @@ function Dashboard({ onLogout }: { onLogout: () => void }) {
         onCloseMobile={() => setMobileOpen(false)}
       />
 
-      {/* Main */}
       <main className="flex-1 md:ml-[220px] pt-14">
         <div className="p-8">
           {section === "clientes" ? <ClientesView /> : <FormulasView />}
