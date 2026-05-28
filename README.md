@@ -17,3 +17,7 @@ Se proyecta desarrollar una interfaz eficiente que permita la carga, almacenamie
 * **Panel de Control:** Vista general de la cartera de clientes.
 * **Acceso a Perfiles:** Visualización detallada de la información de cada cliente asignado.
 * **Gestión de Documentos:** Descarga y revisión de los archivos subidos por los clientes para su posterior procesamiento contable.
+
+## 🌐 Demo en vivo
+
+[Ver aplicación](https://gitaudit.lovable.app)
