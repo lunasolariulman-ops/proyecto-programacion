@@ -1,10 +1,10 @@
-# Programación - Sistema de Gestión para Estudio Contable
+﻿# Programación - Sistema de Gestión para Estudio Contable
 
 ## Descripción del Proyecto
 Este proyecto consiste en una plataforma digital enfocada a optimizar la interacción y el flujo de trabajo entre un estudio contable y sus clientes. El sistema busca facilitar el intercambio de documentación de manera organizada.
 
 ## Objetivo Principal
-Se proyecta desarrollar una interfaz eficiente que permita la carga, almacenamiento y consulta de documentos financieros, asegurando que tanto los clientes como los contadores tengan un punto de acceso centralizado. Asimismo, se busca la implementación de protocolos de seguridad/cifrado debido a la confidencialidad de los archivos que se manejan. 
+Se proyecta desarrollar una interfaz eficiente que permita la carga, almacenamiento y consulta de documentos financieros, asegurando que tanto los clientes como los contadores tengan un punto de acceso centralizado. Asimismo, se busca la implementación de protocolos de seguridad/cifrado debido a la confidencialidad de los archivos que se manejan.
 
 ## Funcionalidades del Sistema
 
@@ -19,5 +19,4 @@ Se proyecta desarrollar una interfaz eficiente que permita la carga, almacenamie
 * **Gestión de Documentos:** Descarga y revisión de los archivos subidos por los clientes para su posterior procesamiento contable.
 
 ## 🌐 Demo en vivo
-
 [Ver aplicación](https://gitaudit.lovable.app)
