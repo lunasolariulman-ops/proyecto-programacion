@@ -1,22 +1,16 @@
-﻿# Programación - Sistema de Gestión para Estudio Contable
+# React + Vite
 
-## Descripción del Proyecto
-Este proyecto consiste en una plataforma digital enfocada a optimizar la interacción y el flujo de trabajo entre un estudio contable y sus clientes. El sistema busca facilitar el intercambio de documentación de manera organizada.
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-## Objetivo Principal
-Se proyecta desarrollar una interfaz eficiente que permita la carga, almacenamiento y consulta de documentos financieros, asegurando que tanto los clientes como los contadores tengan un punto de acceso centralizado. Asimismo, se busca la implementación de protocolos de seguridad/cifrado debido a la confidencialidad de los archivos que se manejan.
+Currently, two official plugins are available:
 
-## Funcionalidades del Sistema
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
 
-### 👤 Módulo del Cliente
-* **Gestión de Perfil:** Espacio personal para el manejo de datos de contacto y fiscales.
-* **Carga de Documentos:** Herramienta para subir archivos y datos requeridos por el estudio de forma directa.
-* **Historial de Envíos:** Consulta de los documentos previamente compartidos.
+## React Compiler
 
-### 💼 Módulo del Contador
-* **Panel de Control:** Vista general de la cartera de clientes.
-* **Acceso a Perfiles:** Visualización detallada de la información de cada cliente asignado.
-* **Gestión de Documentos:** Descarga y revisión de los archivos subidos por los clientes para su posterior procesamiento contable.
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
-## 🌐 Demo en vivo
-[Ver aplicación](https://gitaudit.lovable.app)
+## Expanding the ESLint configuration
+
+If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
