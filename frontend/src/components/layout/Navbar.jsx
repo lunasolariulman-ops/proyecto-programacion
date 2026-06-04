@@ -1,60 +1,69 @@
-import { AppBar, Toolbar, Typography, Button, Box } from '@mui/material';
-import { Link, useNavigate } from 'react-router-dom';
-import { useUsuario } from '../../contexts/UsuarioContext';
-import { useTema } from '../../contexts/TemaContext';
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  Button,
+  IconButton,
+  Box,
+  Container,
+  Tooltip,
+} from "@mui/material";
+import {
+  School as SchoolIcon,
+  Brightness4,
+  Brightness7,
+  Login as LoginIcon,
+  Dashboard as DashboardIcon,
+  AppRegistration,
+} from "@mui/icons-material";
+import { Link, useLocation } from "react-router-dom";
+import { useTema } from "../../contexts/TemaContext";
 
-function Navbar() {
-    const navigate = useNavigate();
-    const { usuario, logout } = useUsuario();
-    const { tema, toggleTema } = useTema();
-    const handleLogout = () => {
-        logout();
-        navigate('/');
-    };
-    
-    return (
-        <AppBar position="static" color="primary">
-            <Toolbar>
-                <Typography variant="h6" sx={{ flexGrow: 1 }}>
-                    Inscripción Alumnos
-                </Typography>
+const links = [
+  { to: "/", label: "Inicio", icon: <SchoolIcon fontSize="small" /> },
+  { to: "/registro", label: "Inscripción", icon: <AppRegistration fontSize="small" /> },
+  { to: "/dashboard", label: "Dashboard", icon: <DashboardIcon fontSize="small" /> },
+  { to: "/login", label: "Login", icon: <LoginIcon fontSize="small" /> },
+];
 
-                <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
-                    <Button color="inherit" component={Link} to="/">
-                        Inicio
-                    </Button>
+const Navbar = () => {
+  const { modo, toggleTema } = useTema();
+  const { pathname } = useLocation();
 
-                    <Button color="inherit" component={Link} to="/registro">
-                        Registrar
-                    </Button>
-                    
-                    <Button color="inherit" component={Link} to="/dashboard">
-                        Dashboard
-                    </Button>
-                    
-                    <Button color="inherit" onClick={toggleTema}>
-                        Tema: {tema}
-                    </Button>               
+  return (
+    <AppBar position="sticky" color="default" elevation={0} sx={{ borderBottom: 1, borderColor: "divider" }}>
+      <Container maxWidth="lg">
+        <Toolbar disableGutters sx={{ gap: 2 }}>
+          <SchoolIcon color="primary" />
+          <Typography variant="h6" component={Link} to="/" sx={{ color: "text.primary", textDecoration: "none", fontWeight: 700, flexGrow: 1 }}>
+            EduInscribe
+          </Typography>
 
-                    {usuario ? (
-                        <>
-                            <Typography variant="body2" sx={{ ml: 2 }}>
-                                Hola, {usuario.nombre}
-                            </Typography>
+          <Box sx={{ display: { xs: "none", md: "flex" }, gap: 1 }}>
+            {links.map((l) => (
+              <Button
+                key={l.to}
+                component={Link}
+                to={l.to}
+                startIcon={l.icon}
+                color={pathname === l.to ? "primary" : "inherit"}
+                variant={pathname === l.to ? "contained" : "text"}
+                disableElevation
+              >
+                {l.label}
+              </Button>
+            ))}
+          </Box>
 
-                            <Button color="inherit" onClick={handleLogout}>
-                                Salir
-                            </Button>
-                        </>
-                    ) : (
-                        <Button color="inherit" component={Link} to="/login">
-                            Login
-                        </Button>
-                    )}      
-                </Box>
-            </Toolbar>
-        </AppBar>
-    );
-}
+          <Tooltip title={modo === "light" ? "Modo oscuro" : "Modo claro"}>
+            <IconButton onClick={toggleTema} color="inherit">
+              {modo === "light" ? <Brightness4 /> : <Brightness7 />}
+            </IconButton>
+          </Tooltip>
+        </Toolbar>
+      </Container>
+    </AppBar>
+  );
+};
 
 export default Navbar;

@@ -1,25 +1,27 @@
-import { useState } from 'react';
-import { Routes, Route } from 'react-router-dom';
-import Home from './components/Home';
-import AlumnoForm from './components/AlumnoForm';
-import Layout from './components/layout/Layout';
-import Login from './pages/Login';
-import Dashboard from './pages/Dashboard';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { TemaProvider } from "./contexts/TemaContext";
+import { UsuarioProvider } from "./contexts/UsuarioContext";
+import Layout from "./components/layout/Layout";
+import Home from "./components/Home";
+import AlumnoForm from "./components/AlumnoForm";
+import Login from "./pages/Login";
+import Dashboard from "./pages/Dashboard";
 
-function App() {
-  const [alumno, setAlumno] = useState(null);
-  return (
-    <Layout>
-      <Routes>
-        <Route path="/" element={<Home alumno={alumno} />} />
-        <Route
-          path="/registro"
-          element={<AlumnoForm onGuardarAlumno={setAlumno} />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/dashboard" element={<Dashboard alumno={alumno} />} />
-      </Routes>
-    </Layout>
-  );
-}
+const App = () => (
+  <TemaProvider>
+    <UsuarioProvider>
+      <BrowserRouter>
+        <Layout>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/registro" element={<AlumnoForm />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+          </Routes>
+        </Layout>
+      </BrowserRouter>
+    </UsuarioProvider>
+  </TemaProvider>
+);
 
 export default App;
