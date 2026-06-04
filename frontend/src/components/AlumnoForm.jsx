@@ -75,45 +75,38 @@ const AlumnoForm = ({ onGuardarAlumno }) => {
                 <MenuBookOutlined color="primary" />
                 <Typography variant="subtitle1" fontWeight={600}>Materia y modalidad</Typography>
               </Stack>
-              <Stack spacing={2}>
-                <FormControl fullWidth required>
-                  <InputLabel shrink>Materia</InputLabel>
-                  <Select
-                    name="materia"
-                    value={formData.materia}
-                    label="Materia"
-                    onChange={handleChange}
-                    displayEmpty
-                  >
-                    <MenuItem value=""><em>Seleccioná una materia</em></MenuItem>
-                    <MenuItem value="Programación I">Programación I</MenuItem>
-                    <MenuItem value="Programación II">Programación II</MenuItem>
-                    <MenuItem value="Base de Datos">Base de Datos</MenuItem>
-                    <MenuItem value="Ingeniería de Software">Ingeniería de Software</MenuItem>
-                  </Select>
-                </FormControl>
-                <Grid container spacing={2}>
-                  <Grid item xs={12} sm={6}>
-                    <FormControl fullWidth>
-                      <InputLabel>Turno</InputLabel>
-                      <Select name="turno" value={formData.turno} label="Turno" onChange={handleChange}>
-                        <MenuItem value="Mañana">Mañana</MenuItem>
-                        <MenuItem value="Tarde">Tarde</MenuItem>
-                        <MenuItem value="Noche">Noche</MenuItem>
-                      </Select>
-                    </FormControl>
-                  </Grid>
-                  <Grid item xs={12} sm={6}>
-                    <FormControl>
-                      <FormLabel>Modalidad</FormLabel>
-                      <RadioGroup row name="modalidad" value={formData.modalidad} onChange={handleChange}>
-                        <FormControlLabel value="Presencial" control={<Radio />} label="Presencial" />
-                        <FormControlLabel value="Virtual" control={<Radio />} label="Virtual" />
-                      </RadioGroup>
-                    </FormControl>
-                  </Grid>
+              <Grid container spacing={2}>
+                <Grid item xs={12} sm={6}>
+                  <FormControl fullWidth required>
+                    <InputLabel>Materia</InputLabel>
+                    <Select name="materia" value={formData.materia} label="Materia" onChange={handleChange}>
+                      <MenuItem value="Programación I">Programación I</MenuItem>
+                      <MenuItem value="Programación II">Programación II</MenuItem>
+                      <MenuItem value="Base de Datos">Base de Datos</MenuItem>
+                      <MenuItem value="Ingeniería de Software">Ingeniería de Software</MenuItem>
+                    </Select>
+                  </FormControl>
                 </Grid>
-              </Stack>
+                <Grid item xs={12} sm={6}>
+                  <FormControl fullWidth>
+                    <InputLabel>Turno</InputLabel>
+                    <Select name="turno" value={formData.turno} label="Turno" onChange={handleChange}>
+                      <MenuItem value="Mañana">Mañana</MenuItem>
+                      <MenuItem value="Tarde">Tarde</MenuItem>
+                      <MenuItem value="Noche">Noche</MenuItem>
+                    </Select>
+                  </FormControl>
+                </Grid>
+                <Grid item xs={12}>
+                  <FormControl>
+                    <FormLabel>Modalidad</FormLabel>
+                    <RadioGroup row name="modalidad" value={formData.modalidad} onChange={handleChange}>
+                      <FormControlLabel value="Presencial" control={<Radio />} label="Presencial" />
+                      <FormControlLabel value="Virtual" control={<Radio />} label="Virtual" />
+                    </RadioGroup>
+                  </FormControl>
+                </Grid>
+              </Grid>
             </Box>
 
             <TextField
