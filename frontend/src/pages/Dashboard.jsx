@@ -1,5 +1,5 @@
 import { Grid, Card, CardContent, Stack, Typography, Avatar, Box, Divider, List, ListItem, ListItemAvatar, ListItemText } from "@mui/material";
-import { GroupsOutlined, MenuBookOutlined, AssignmentTurnedInOutlined, PersonOutline } from "@mui/icons-material";
+import { GroupsOutlined, MenuBookOutlined, AssignmentTurnedInOutlined, Person } from "@mui/icons-material";
 import { useUsuario } from "../contexts/UsuarioContext";
 
 const materias = ["Matemática", "Programación", "Historia", "Inglés"];
@@ -8,7 +8,7 @@ const Dashboard = ({ alumno }) => {
   const { usuario } = useUsuario();
 
   const stats = [
-    { label: "Usuario", value: usuario?.email ?? "Invitado", icon: <PersonOutline />, color: "primary.main" },
+    { label: "Usuario", value: usuario?.email ?? "Invitado", icon: <Person />, color: "primary.main" },
     { label: "Materias disponibles", value: materias.length, icon: <MenuBookOutlined />, color: "secondary.main" },
     { label: "Alumno inscripto", value: alumno ? `${alumno.nombre} ${alumno.apellido}` : "Ninguno", icon: <AssignmentTurnedInOutlined />, color: "success.main" },
     { label: "Materia elegida", value: alumno?.materia ?? "-", icon: <GroupsOutlined />, color: "warning.main" },
@@ -46,7 +46,7 @@ const Dashboard = ({ alumno }) => {
             <Divider sx={{ mb: 1 }} />
             <List>
               <ListItem>
-                <ListItemAvatar><Avatar><PersonOutline /></Avatar></ListItemAvatar>
+                <ListItemAvatar><Avatar><Person /></Avatar></ListItemAvatar>
                 <ListItemText
                   primary={`${alumno.nombre} ${alumno.apellido}`}
                   secondary={`DNI: ${alumno.dni} — Email: ${alumno.email} — Materia: ${alumno.materia}`}
