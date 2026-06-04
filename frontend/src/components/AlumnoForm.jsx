@@ -1,176 +1,135 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
-    Box,
-    Button,
-    Card,
-    CardContent,
-    Checkbox,
-    FormControl,
-    FormControlLabel,
-    FormLabel,
-    Grid,
-    InputLabel,
-    MenuItem,
-    Radio,
-    RadioGroup,
-    Select,
-    TextField,
-    Typography,
-} from '@mui/material';
+  Card, CardContent, CardHeader, Grid, TextField, MenuItem,
+  Button, Stack, Divider, Typography, Box, FormControl,
+  FormLabel, RadioGroup, FormControlLabel, Radio, Checkbox, Select, InputLabel,
+} from "@mui/material";
+import { Person, BadgeOutlined, MenuBookOutlined, SaveOutlined } from "@mui/icons-material";
 
-function AlumnoForm({ onGuardarAlumno }) {
-    const navigate = useNavigate();
+const AlumnoForm = ({ onGuardarAlumno }) => {
+  const navigate = useNavigate();
 
-    const [formData, setFormData] = useState({
-        nombre: '',
-        dni: '',
-        email: '',
-        materia: '',
-        modalidad: 'Presencial',
-        turno: 'Mañana',
-        observaciones: '',
-        aceptaReglamento: false,
-    });
+  const [formData, setFormData] = useState({
+    nombre: '',
+    dni: '',
+    email: '',
+    materia: '',
+    modalidad: 'Presencial',
+    turno: 'Mañana',
+    observaciones: '',
+    aceptaReglamento: false,
+  });
 
-    const handleChange = (event) => {
-        const { name, value, type, checked } = event.target;
+  const handleChange = (event) => {
+    const { name, value, type, checked } = event.target;
+    setFormData({ ...formData, [name]: type === 'checkbox' ? checked : value });
+  };
 
-        setFormData({
-            ...formData,
-        [name]: type === 'checkbox' ? checked : value,
-        });
-    };
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    if (!formData.aceptaReglamento) {
+      alert('Debe aceptar el reglamento para continuar');
+      return;
+    }
+    onGuardarAlumno(formData);
+    navigate('/');
+  };
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        if (!formData.aceptaReglamento) {
-            alert('Debe aceptar el reglamento para continuar');
-            return;
-        }
-        onGuardarAlumno(formData);
-        navigate('/');
-    };
-    return (
-        <Card>
-            <CardContent>
-                <Typography variant="h5" component="h2" gutterBottom>
-                    Formulario de inscripción
-                </Typography>
+  return (
+    <Card sx={{ maxWidth: 800, mx: "auto" }}>
+      <CardHeader
+        title={<Typography variant="h5" fontWeight={700}>Inscripción de alumno</Typography>}
+        subheader="Completá los datos para inscribir al alumno a una materia"
+      />
+      <Divider />
+      <CardContent>
+        <Box component="form" onSubmit={handleSubmit}>
+          <Stack spacing={4}>
 
-            <Box component="form" onSubmit={handleSubmit} sx={{ mt: 2 }}>
-                <TextField
-                    fullWidth
-                    label="Nombre y apellido"
-                    name="nombre"
-                    value={formData.nombre}
-                    onChange={handleChange}
-                    margin="normal"
-                    required
-                />
+            <Box>
+              <Stack direction="row" spacing={1} alignItems="center" mb={2}>
+                <Person color="primary" />
+                <Typography variant="subtitle1" fontWeight={600}>Datos personales</Typography>
+              </Stack>
+              <TextField fullWidth required label="Nombre y apellido" name="nombre" value={formData.nombre} onChange={handleChange} />
+            </Box>
 
-                <TextField
-                    fullWidth
-                    label="DNI"
-                    name="dni"
-                    value={formData.dni}
-                    onChange={handleChange}
-                    margin="normal"
-                    required
-                />
-                <TextField
-                    fullWidth
-                    label="Email"
-                    name="email"
-                    type="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    margin="normal"
-                    required
-                />
-                <FormControl fullWidth margin="normal">
-                    <InputLabel>Materia</InputLabel>
-                    <Select
-                        name="materia"
-                        value={formData.materia}
-                        label="Materia"
-                        onChange={handleChange}
-                        required
-                    >
-                        <MenuItem value="Programación I">Programación I</MenuItem>
-                        <MenuItem value="Programación II">Programación II</MenuItem>
-                        <MenuItem value="Base de Datos">Base de Datos</MenuItem>
-                        <MenuItem value="Ingeniería de Software">Ingeniería de Software</MenuItem>
-                    </Select>
-                </FormControl>
-                
-                <Grid container spacing={2} sx={{ mt: 1 }}>
-                    <Grid item xs={12} sm={6}>
-                        <FormControl fullWidth margin="normal">
-                            <FormLabel>Modalidad</FormLabel>
-                            <RadioGroup
-                                row
-                                name="modalidad"
-                                value={formData.modalidad}                                    onChange={handleChange}
-                            >
-                                <FormControlLabel value="Presencial" control={<Radio />} label="Presencial" />
-                                <FormControlLabel value="Virtual" control={<Radio />} label="Virtual" />
-                            </RadioGroup>
-                        </FormControl>
-                    </Grid>
-
-                    <Grid item xs={12} sm={6}>
-                        <FormControl fullWidth sx={{ mt: 3 }}>
-                            <InputLabel>Turno</InputLabel>
-                            <Select
-                                name="turno"
-                                value={formData.turno}
-                                label="Turno"
-                                onChange={handleChange}
-                            >
-                                <MenuItem value="Mañana">Mañana</MenuItem>
-                                <MenuItem value="Tarde">Tarde</MenuItem>
-                                <MenuItem value="Noche">Noche</MenuItem>
-                            </Select>
-                        </FormControl>
-                    </Grid>
+            <Box>
+              <Stack direction="row" spacing={1} alignItems="center" mb={2}>
+                <BadgeOutlined color="primary" />
+                <Typography variant="subtitle1" fontWeight={600}>Identificación</Typography>
+              </Stack>
+              <Grid container spacing={2}>
+                <Grid item xs={12} sm={6}>
+                  <TextField fullWidth required label="DNI" name="dni" value={formData.dni} onChange={handleChange} />
                 </Grid>
+                <Grid item xs={12} sm={6}>
+                  <TextField fullWidth required type="email" label="Email" name="email" value={formData.email} onChange={handleChange} />
+                </Grid>
+              </Grid>
+            </Box>
 
-                <TextField
-                    fullWidth
-                    multiline
-                    rows={4}
-                    label="Observaciones"
-                    name="observaciones"
-                    value={formData.observaciones}
-                    onChange={handleChange}
-                    margin="normal"
-                />
+            <Box>
+              <Stack direction="row" spacing={1} alignItems="center" mb={2}>
+                <MenuBookOutlined color="primary" />
+                <Typography variant="subtitle1" fontWeight={600}>Materia y modalidad</Typography>
+              </Stack>
+              <Grid container spacing={2}>
+                <Grid item xs={12} sm={6}>
+                  <FormControl fullWidth required>
+                    <InputLabel>Materia</InputLabel>
+                    <Select name="materia" value={formData.materia} label="Materia" onChange={handleChange}>
+                      <MenuItem value="Programación I">Programación I</MenuItem>
+                      <MenuItem value="Programación II">Programación II</MenuItem>
+                      <MenuItem value="Base de Datos">Base de Datos</MenuItem>
+                      <MenuItem value="Ingeniería de Software">Ingeniería de Software</MenuItem>
+                    </Select>
+                  </FormControl>
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <FormControl fullWidth>
+                    <InputLabel>Turno</InputLabel>
+                    <Select name="turno" value={formData.turno} label="Turno" onChange={handleChange}>
+                      <MenuItem value="Mañana">Mañana</MenuItem>
+                      <MenuItem value="Tarde">Tarde</MenuItem>
+                      <MenuItem value="Noche">Noche</MenuItem>
+                    </Select>
+                  </FormControl>
+                </Grid>
+                <Grid item xs={12}>
+                  <FormControl>
+                    <FormLabel>Modalidad</FormLabel>
+                    <RadioGroup row name="modalidad" value={formData.modalidad} onChange={handleChange}>
+                      <FormControlLabel value="Presencial" control={<Radio />} label="Presencial" />
+                      <FormControlLabel value="Virtual" control={<Radio />} label="Virtual" />
+                    </RadioGroup>
+                  </FormControl>
+                </Grid>
+              </Grid>
+            </Box>
 
-                <FormControlLabel
-                    control={
-                        <Checkbox
-                            name="aceptaReglamento"
-                            checked={formData.aceptaReglamento}
-                            onChange={handleChange}
-                        />
-                        }
-                        label="Acepto el reglamento de inscripción"
-                    />
-                    
-                    <Box sx={{ mt: 3, display: 'flex', gap: 2 }}>
-                        <Button type="submit" variant="contained" color="primary">
-                            Enviar inscripción
-                        </Button>
-    
-                        <Button variant="outlined" onClick={() => navigate('/')}>
-                            Volver
-                        </Button>
-                    </Box>
-                </Box>
-            </CardContent>
-        </Card>
-    );
+            <TextField
+              fullWidth multiline rows={4}
+              label="Observaciones" name="observaciones"
+              value={formData.observaciones} onChange={handleChange}
+            />
+
+            <FormControlLabel
+              control={<Checkbox name="aceptaReglamento" checked={formData.aceptaReglamento} onChange={handleChange} />}
+              label="Acepto el reglamento de inscripción"
+            />
+
+            <Stack direction="row" justifyContent="flex-end" spacing={2}>
+              <Button variant="outlined" onClick={() => navigate('/')}>Volver</Button>
+              <Button type="submit" variant="contained" startIcon={<SaveOutlined />}>Enviar inscripción</Button>
+            </Stack>
+
+          </Stack>
+        </Box>
+      </CardContent>
+    </Card>
+  );
 };
 
 export default AlumnoForm;
