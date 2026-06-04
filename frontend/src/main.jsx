@@ -6,13 +6,11 @@ import { UsuarioProvider } from './contexts/UsuarioContext.jsx';
 import { TemaProvider } from './contexts/TemaContext.jsx';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-    <React.StrictMode>
-        <BrowserRouter>
+    <BrowserRouter>
+        <TemaProvider>       
             <UsuarioProvider>
-                <TemaProvider>
-                    <App />
-                </TemaProvider>
+                <App />
             </UsuarioProvider>
-        </BrowserRouter>
-    </React.StrictMode>
+        </TemaProvider>
+    </BrowserRouter>
 );
