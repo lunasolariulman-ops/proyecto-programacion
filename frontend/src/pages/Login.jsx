@@ -1,52 +1,69 @@
-import { Card, CardContent, TextField, Button, Stack, Typography, Box, InputAdornment } from "@mui/material";
-import { LockOutlined, EmailOutlined, Login as LoginIcon } from "@mui/icons-material";
-import { useState } from "react";
-import { useUsuario } from "../contexts/UsuarioContext";
-import { useNavigate } from "react-router-dom";
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import {
+Box,
+Button,
+Card,
+CardContent,
+TextField,
+Typography,
+} from '@mui/material';
+import { useUsuario } from '../contexts/UsuarioContext';
 
-const Login = () => {
-  const [data, setData] = useState({ email: "", password: "" });
-  const { login } = useUsuario();
-  const navigate = useNavigate();
+function Login() {
+    const navigate = useNavigate();
+    const { login } = useUsuario();
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        
+        const usuarioSimulado = {
+            nombre: 'Alumno Demo',
+            email: email,
+        };
+        login(usuarioSimulado);
+        navigate('/dashboard');
+    };
 
-  const handle = (e) => setData({ ...data, [e.target.name]: e.target.value });
+    return (
+        <Card>
+            <CardContent>
+                <Typography variant="h5" component="h2" gutterBottom>
+                Iniciar sesión
+                </Typography>
 
-  const onSubmit = (e) => {
-    e.preventDefault();
-    login(data);
-    navigate("/dashboard");
-  };
+                <Typography variant="body2" sx={{ mb: 2 }}>
+                    Ingresá tus datos para simular el acceso al sistema.
+                </Typography>
 
-  return (
-    <Box display="flex" justifyContent="center" alignItems="center" minHeight="70vh">
-      <Card sx={{ width: "100%", maxWidth: 420 }}>
-        <CardContent sx={{ p: 4 }}>
-          <Stack spacing={3} component="form" onSubmit={onSubmit}>
-            <Stack alignItems="center" spacing={1}>
-              <LockOutlined color="primary" sx={{ fontSize: 40 }} />
-              <Typography variant="h5" fontWeight={700}>Iniciar sesión</Typography>
-              <Typography variant="body2" color="text.secondary">Accedé con tu cuenta</Typography>
-            </Stack>
+                <Box component="form" onSubmit={handleSubmit}>
+                    <TextField
+                        fullWidth
+                        label="Email"
+                        type="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        margin="normal"
+                        required
+                    />
+                
+                    <TextField
+                        fullWidth
+                        label="Contraseña"
+                        type="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        margin="normal"
+                        required
+                    />
 
-            <TextField
-              fullWidth required label="Email" name="email" type="email"
-              value={data.email} onChange={handle}
-              InputProps={{ startAdornment: <InputAdornment position="start"><EmailOutlined fontSize="small" /></InputAdornment> }}
-            />
-            <TextField
-              fullWidth required label="Contraseña" name="password" type="password"
-              value={data.password} onChange={handle}
-              InputProps={{ startAdornment: <InputAdornment position="start"><LockOutlined fontSize="small" /></InputAdornment> }}
-            />
-
-            <Button type="submit" variant="contained" size="large" startIcon={<LoginIcon />}>
-              Ingresar
-            </Button>
-          </Stack>
-        </CardContent>
-      </Card>
-    </Box>
-  );
-};
-
+                    <Button type="submit" variant="contained" sx={{ mt: 2 }}>
+                        Ingresar
+                    </Button>
+                </Box>
+            </CardContent>
+        </Card>
+    );
+}
 export default Login;
