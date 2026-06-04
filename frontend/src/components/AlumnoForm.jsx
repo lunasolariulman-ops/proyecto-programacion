@@ -77,15 +77,15 @@ const AlumnoForm = ({ onGuardarAlumno }) => {
               </Stack>
               <Grid container spacing={2}>
                 <Grid item xs={12}>
-                  <FormControl fullWidth required>
-                    <InputLabel>Materia</InputLabel>
-                    <Select name="materia" value={formData.materia} label="Materia" onChange={handleChange}>
-                      <MenuItem value="Programación I">Programación I</MenuItem>
-                      <MenuItem value="Programación II">Programación II</MenuItem>
-                      <MenuItem value="Base de Datos">Base de Datos</MenuItem>
-                      <MenuItem value="Ingeniería de Software">Ingeniería de Software</MenuItem>
-                    </Select>
-                  </FormControl>
+                    <FormControl fullWidth required sx={{ minWidth: '100%' }}>
+                        <InputLabel>Materia</InputLabel>
+                        <Select name="materia" value={formData.materia} label="Materia" onChange={handleChange}>
+                        <MenuItem value="Programación I">Programación I</MenuItem>
+                        <MenuItem value="Programación II">Programación II</MenuItem>
+                        <MenuItem value="Base de Datos">Base de Datos</MenuItem>
+                        <MenuItem value="Ingeniería de Software">Ingeniería de Software</MenuItem>
+                        </Select>
+                    </FormControl>
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <FormControl fullWidth>
