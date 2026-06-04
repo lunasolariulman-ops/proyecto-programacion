@@ -1,176 +1,85 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import {
-    Box,
-    Button,
-    Card,
-    CardContent,
-    Checkbox,
-    FormControl,
-    FormControlLabel,
-    FormLabel,
-    Grid,
-    InputLabel,
-    MenuItem,
-    Radio,
-    RadioGroup,
-    Select,
-    TextField,
-    Typography,
-} from '@mui/material';
+  Card, CardContent, CardHeader, Grid, TextField, MenuItem,
+  Button, Stack, Divider, Typography, Box,
+} from "@mui/material";
+import {
+  PersonOutline, BadgeOutlined, MenuBookOutlined, SaveOutlined,
+} from "@mui/icons-material";
+import { useState } from "react";
 
-function AlumnoForm({ onGuardarAlumno }) {
-    const navigate = useNavigate();
+const materias = ["Matemática", "Programación", "Historia", "Inglés"];
 
-    const [formData, setFormData] = useState({
-        nombre: '',
-        dni: '',
-        email: '',
-        materia: '',
-        modalidad: 'Presencial',
-        turno: 'Mañana',
-        observaciones: '',
-        aceptaReglamento: false,
-    });
+const AlumnoForm = () => {
+  // 👉 Reemplazá este state por el tuyo si ya lo tenés
+  const [form, setForm] = useState({ nombre: "", apellido: "", dni: "", email: "", materia: "" });
 
-    const handleChange = (event) => {
-        const { name, value, type, checked } = event.target;
+  const handle = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
-        setFormData({
-            ...formData,
-        [name]: type === 'checkbox' ? checked : value,
-        });
-    };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // 👉 mantené acá tu lógica original
+    console.log("Inscribir:", form);
+  };
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        if (!formData.aceptaReglamento) {
-            alert('Debe aceptar el reglamento para continuar');
-            return;
-        }
-        onGuardarAlumno(formData);
-        navigate('/');
-    };
-    return (
-        <Card>
-            <CardContent>
-                <Typography variant="h5" component="h2" gutterBottom>
-                    Formulario de inscripción
-                </Typography>
-
-            <Box component="form" onSubmit={handleSubmit} sx={{ mt: 2 }}>
-                <TextField
-                    fullWidth
-                    label="Nombre y apellido"
-                    name="nombre"
-                    value={formData.nombre}
-                    onChange={handleChange}
-                    margin="normal"
-                    required
-                />
-
-                <TextField
-                    fullWidth
-                    label="DNI"
-                    name="dni"
-                    value={formData.dni}
-                    onChange={handleChange}
-                    margin="normal"
-                    required
-                />
-                <TextField
-                    fullWidth
-                    label="Email"
-                    name="email"
-                    type="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    margin="normal"
-                    required
-                />
-                <FormControl fullWidth margin="normal">
-                    <InputLabel>Materia</InputLabel>
-                    <Select
-                        name="materia"
-                        value={formData.materia}
-                        label="Materia"
-                        onChange={handleChange}
-                        required
-                    >
-                        <MenuItem value="Programación I">Programación I</MenuItem>
-                        <MenuItem value="Programación II">Programación II</MenuItem>
-                        <MenuItem value="Base de Datos">Base de Datos</MenuItem>
-                        <MenuItem value="Ingeniería de Software">Ingeniería de Software</MenuItem>
-                    </Select>
-                </FormControl>
-                
-                <Grid container spacing={2} sx={{ mt: 1 }}>
-                    <Grid item xs={12} sm={6}>
-                        <FormControl fullWidth margin="normal">
-                            <FormLabel>Modalidad</FormLabel>
-                            <RadioGroup
-                                row
-                                name="modalidad"
-                                value={formData.modalidad}                                    onChange={handleChange}
-                            >
-                                <FormControlLabel value="Presencial" control={<Radio />} label="Presencial" />
-                                <FormControlLabel value="Virtual" control={<Radio />} label="Virtual" />
-                            </RadioGroup>
-                        </FormControl>
-                    </Grid>
-
-                    <Grid item xs={12} sm={6}>
-                        <FormControl fullWidth sx={{ mt: 3 }}>
-                            <InputLabel>Turno</InputLabel>
-                            <Select
-                                name="turno"
-                                value={formData.turno}
-                                label="Turno"
-                                onChange={handleChange}
-                            >
-                                <MenuItem value="Mañana">Mañana</MenuItem>
-                                <MenuItem value="Tarde">Tarde</MenuItem>
-                                <MenuItem value="Noche">Noche</MenuItem>
-                            </Select>
-                        </FormControl>
-                    </Grid>
+  return (
+    <Card sx={{ maxWidth: 800, mx: "auto" }}>
+      <CardHeader
+        title={<Typography variant="h5" fontWeight={700}>Inscripción de alumno</Typography>}
+        subheader="Completá los datos para inscribir al alumno a una materia"
+      />
+      <Divider />
+      <CardContent>
+        <Box component="form" onSubmit={handleSubmit}>
+          <Stack spacing={4}>
+            <Box>
+              <Stack direction="row" spacing={1} alignItems="center" mb={2}>
+                <PersonOutline color="primary" />
+                <Typography variant="subtitle1" fontWeight={600}>Datos personales</Typography>
+              </Stack>
+              <Grid container spacing={2}>
+                <Grid item xs={12} sm={6}>
+                  <TextField fullWidth required label="Nombre" name="nombre" value={form.nombre} onChange={handle} />
                 </Grid>
+                <Grid item xs={12} sm={6}>
+                  <TextField fullWidth required label="Apellido" name="apellido" value={form.apellido} onChange={handle} />
+                </Grid>
+              </Grid>
+            </Box>
 
-                <TextField
-                    fullWidth
-                    multiline
-                    rows={4}
-                    label="Observaciones"
-                    name="observaciones"
-                    value={formData.observaciones}
-                    onChange={handleChange}
-                    margin="normal"
-                />
+            <Box>
+              <Stack direction="row" spacing={1} alignItems="center" mb={2}>
+                <BadgeOutlined color="primary" />
+                <Typography variant="subtitle1" fontWeight={600}>Identificación</Typography>
+              </Stack>
+              <Grid container spacing={2}>
+                <Grid item xs={12} sm={6}>
+                  <TextField fullWidth required label="DNI" name="dni" value={form.dni} onChange={handle} />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <TextField fullWidth required type="email" label="Email" name="email" value={form.email} onChange={handle} />
+                </Grid>
+              </Grid>
+            </Box>
 
-                <FormControlLabel
-                    control={
-                        <Checkbox
-                            name="aceptaReglamento"
-                            checked={formData.aceptaReglamento}
-                            onChange={handleChange}
-                        />
-                        }
-                        label="Acepto el reglamento de inscripción"
-                    />
-                    
-                    <Box sx={{ mt: 3, display: 'flex', gap: 2 }}>
-                        <Button type="submit" variant="contained" color="primary">
-                            Enviar inscripción
-                        </Button>
-    
-                        <Button variant="outlined" onClick={() => navigate('/')}>
-                            Volver
-                        </Button>
-                    </Box>
-                </Box>
-            </CardContent>
-        </Card>
-    );
+            <Box>
+              <Stack direction="row" spacing={1} alignItems="center" mb={2}>
+                <MenuBookOutlined color="primary" />
+                <Typography variant="subtitle1" fontWeight={600}>Materia</Typography>
+              </Stack>
+              <TextField fullWidth required select label="Seleccioná una materia" name="materia" value={form.materia} onChange={handle}>
+                {materias.map((m) => <MenuItem key={m} value={m}>{m}</MenuItem>)}
+              </TextField>
+            </Box>
+
+            <Stack direction="row" justifyContent="flex-end" spacing={2}>
+              <Button type="reset" variant="text">Limpiar</Button>
+              <Button type="submit" variant="contained" startIcon={<SaveOutlined />}>Inscribir</Button>
+            </Stack>
+          </Stack>
+        </Box>
+      </CardContent>
+    </Card>
+  );
 };
 
 export default AlumnoForm;

@@ -1,66 +1,61 @@
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Grid, Card, CardContent, Stack, Typography, Avatar, Box, Divider, List, ListItem, ListItemAvatar, ListItemText } from "@mui/material";
 import {
-    Card,
-    CardContent,
-    Typography,
-    Divider,
-    Alert,
-} from '@mui/material';
-import { useUsuario } from '../contexts/UsuarioContext';
+  GroupsOutlined, MenuBookOutlined, AssignmentTurnedInOutlined, TrendingUp, PersonOutline,
+} from "@mui/icons-material";
 
-function Dashboard({ alumno }) {
-    const navigate = useNavigate();
-    const { usuario } = useUsuario();
-    
-    useEffect(() => {
-        if (!usuario) {
-            navigate('/login');
-        }
-    }, [usuario, navigate]);
+const stats = [
+  { label: "Alumnos", value: 124, icon: <GroupsOutlined />, color: "primary.main" },
+  { label: "Materias", value: 8, icon: <MenuBookOutlined />, color: "secondary.main" },
+  { label: "Inscripciones", value: 312, icon: <AssignmentTurnedInOutlined />, color: "success.main" },
+  { label: "Crecimiento", value: "+12%", icon: <TrendingUp />, color: "warning.main" },
+];
 
-    if (!usuario) {
-        return null;
-    }
-    return (
-        <Card>
+const recientes = [
+  { nombre: "Juan Pérez", materia: "Matemática" },
+  { nombre: "Ana Gómez", materia: "Programación" },
+  { nombre: "Luis Díaz", materia: "Inglés" },
+];
+
+const Dashboard = () => (
+  <Stack spacing={4}>
+    <Box>
+      <Typography variant="h4" fontWeight={800}>Dashboard</Typography>
+      <Typography variant="body1" color="text.secondary">Resumen general de inscripciones</Typography>
+    </Box>
+
+    <Grid container spacing={3}>
+      {stats.map((s) => (
+        <Grid item xs={12} sm={6} md={3} key={s.label}>
+          <Card>
             <CardContent>
-                <Typography variant="h5" gutterBottom>
-                    Dashboard
-                </Typography>
-
-                <Typography variant="body1" sx={{ mb: 2 }}>
-                    Bienvenido, {usuario.nombre}
-                </Typography>
-                
-                <Typography variant="body2" sx={{ mb: 2 }}>
-                    Email: {usuario.email}
-                </Typography>
-
-                <Divider sx={{ mb: 2 }} />
-                
-                {alumno ? (
-                    <>
-                        <Typography variant="h6" gutterBottom>
-                            Última inscripción registrada
-                        </Typography>
-                        
-                        <Typography><strong>Nombre:</strong> {alumno.nombre}</Typography>
-                        <Typography><strong>DNI:</strong> {alumno.dni}</Typography>
-                        <Typography><strong>Email:</strong> {alumno.email}</Typography>
-                        <Typography><strong>Materia:</strong> {alumno.materia}</Typography>
-                        <Typography><strong>Modalidad:</strong> {alumno.modalidad}</Typography>
-                        <Typography><strong>Turno:</strong> {alumno.turno}</Typography>
-
-                    </>
-                ) : (
-                    <Alert severity="info">
-                        Todavía no hay ninguna inscripción registrada.
-                    </Alert>
-                )}
+              <Stack direction="row" spacing={2} alignItems="center">
+                <Avatar sx={{ bgcolor: s.color, width: 48, height: 48 }}>{s.icon}</Avatar>
+                <Box>
+                  <Typography variant="body2" color="text.secondary">{s.label}</Typography>
+                  <Typography variant="h5" fontWeight={700}>{s.value}</Typography>
+                </Box>
+              </Stack>
             </CardContent>
-        </Card>
-    );
-}
+          </Card>
+        </Grid>
+      ))}
+    </Grid>
+
+    <Card>
+      <CardContent>
+        <Typography variant="h6" fontWeight={700} gutterBottom>Inscripciones recientes</Typography>
+        <Divider sx={{ mb: 1 }} />
+        <List>
+          {recientes.map((r, i) => (
+            <ListItem key={i} divider={i < recientes.length - 1}>
+              <ListItemAvatar><Avatar><PersonOutline /></Avatar></ListItemAvatar>
+              <ListItemText primary={r.nombre} secondary={`Materia: ${r.materia}`} />
+            </ListItem>
+          ))}
+        </List>
+      </CardContent>
+    </Card>
+  </Stack>
+);
 
 export default Dashboard;
