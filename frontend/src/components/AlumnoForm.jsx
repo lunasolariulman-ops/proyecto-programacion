@@ -76,7 +76,7 @@ const AlumnoForm = ({ onGuardarAlumno }) => {
                 <Typography variant="subtitle1" fontWeight={600}>Materia y modalidad</Typography>
               </Stack>
               <Grid container spacing={2}>
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={12}>
                   <FormControl fullWidth required>
                     <InputLabel>Materia</InputLabel>
                     <Select name="materia" value={formData.materia} label="Materia" onChange={handleChange}>
