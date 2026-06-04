@@ -1,16 +1,20 @@
 import { Card, CardContent, TextField, Button, Stack, Typography, Box, InputAdornment } from "@mui/material";
 import { LockOutlined, EmailOutlined, Login as LoginIcon } from "@mui/icons-material";
 import { useState } from "react";
-// import { useUsuario } from "../contexts/UsuarioContext";
+import { useUsuario } from "../contexts/UsuarioContext";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [data, setData] = useState({ email: "", password: "" });
-  // const { login } = useUsuario();
+  const { login } = useUsuario();
+  const navigate = useNavigate();
 
   const handle = (e) => setData({ ...data, [e.target.name]: e.target.value });
+
   const onSubmit = (e) => {
     e.preventDefault();
-    // login(data); // 👉 mantené tu lógica original
+    login(data);
+    navigate("/dashboard");
   };
 
   return (
