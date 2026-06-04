@@ -77,8 +77,15 @@ const AlumnoForm = ({ onGuardarAlumno }) => {
               </Stack>
               <Stack spacing={2}>
                 <FormControl fullWidth required>
-                  <InputLabel>Materia</InputLabel>
-                  <Select name="materia" value={formData.materia} label="Materia" onChange={handleChange}>
+                  <InputLabel shrink>Materia</InputLabel>
+                  <Select
+                    name="materia"
+                    value={formData.materia}
+                    label="Materia"
+                    onChange={handleChange}
+                    displayEmpty
+                  >
+                    <MenuItem value=""><em>Seleccioná una materia</em></MenuItem>
                     <MenuItem value="Programación I">Programación I</MenuItem>
                     <MenuItem value="Programación II">Programación II</MenuItem>
                     <MenuItem value="Base de Datos">Base de Datos</MenuItem>
